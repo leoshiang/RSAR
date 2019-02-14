@@ -1,0 +1,18 @@
+{
+  "Search": {
+    "RootDirectory": "D:\\Projects",
+    "ExcludedExtensions": [],
+    "ExcludedDirectories": [],
+    "IncludedExtensions": [ ".cs" ],
+    "IncludedDirectories": [],
+    "Regex": "((from)|(join))(\\s+)([a-zA-z_]{2,})",
+    "IgnoreCase": true
+  },
+  "Output": {
+    "FileName": false,
+    "MatchedCount": false,
+    "MatchedText": true,
+    "MatchedGroups": [ 5 ],
+    "TextTransform": ""
+  }
+}
