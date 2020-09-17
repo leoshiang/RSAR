@@ -11,14 +11,14 @@ namespace RSAR
 {
     internal class Program
     {
-        private static Config Config;
+        private static Config _config;
 
         public static void Main(string[] args)
         {
             try
             {
-                Config = GetConfig(args);
-                var files = SearchFiles(Config);
+                _config = GetConfig(args);
+                var files = SearchFiles(_config);
                 ProcessFiles(files);
             }
             catch (Exception e)
@@ -30,12 +30,12 @@ namespace RSAR
 
         private static void GenerateOutput(string file, MatchCollection matches)
         {
-            if (Config.Output.FileName) Console.WriteLine(file);
-            if (Config.Output.MatchedCount) Console.WriteLine(matches.Count);
-            if (!Config.Output.MatchedText) return;
+            if (_config.Output.FileName) Console.WriteLine(file);
+            if (_config.Output.MatchedCount) Console.WriteLine(matches.Count);
+            if (!_config.Output.MatchedText) return;
             foreach (Match match in matches)
             {
-                if (Config.Output.MatchedGroups.Length == 0)
+                if (_config.Output.MatchedGroups.Length == 0)
                 {
                     Console.WriteLine(match.Value);
                     continue;
@@ -44,21 +44,19 @@ namespace RSAR
                 for (var i = 1; i < match.Groups.Count; i++)
                 {
                     var group = match.Groups[i];
-                    if (Config.Output.MatchedGroups.Contains(i))
+                    if (!_config.Output.MatchedGroups.Contains(i)) continue;
+                    var output = @group.Value;
+                    switch (_config.Output.TextTransform)
                     {
-                        var output = group.Value;
-                        if (Config.Output.TextTransform == "U")
-                        {
+                        case "U":
                             output = output.ToUpper();
-                        }
-
-                        if (Config.Output.TextTransform == "L")
-                        {
+                            break;
+                        case "L":
                             output = output.ToLower();
-                        }
-
-                        Console.Write(output);
+                            break;
                     }
+
+                    Console.Write(output);
                 }
 
                 Console.WriteLine();
@@ -86,18 +84,15 @@ namespace RSAR
             return JsonConvert.DeserializeObject<Config>(contents);
         }
 
-        private static void PrintUsage()
-        {
-            Console.WriteLine("Usage: Grape");
-        }
+        private static void PrintUsage() => Console.WriteLine("Usage: RSAR config_file");
 
         private static void ProcessFiles(IEnumerable<string> files)
         {
-            var regexOptions = GetOptions(Config.Search);
+            var regexOptions = GetOptions(_config.Search);
             foreach (var file in files)
             {
                 var fileContents = File.ReadAllText(file);
-                var matches = Regex.Matches(fileContents, Config.Search.Regex, regexOptions);
+                var matches = Regex.Matches(fileContents, _config.Search.Regex, regexOptions);
                 if (matches.Count == 0) continue;
                 GenerateOutput(file, matches);
             }
@@ -109,7 +104,7 @@ namespace RSAR
 
             if (searchOptions.IgnoreCase)
             {
-                result = result | RegexOptions.IgnoreCase;
+                result |= RegexOptions.IgnoreCase;
             }
 
             return result;
