@@ -1,12 +1,13 @@
 # RSAR
+---
 
-*Leo Shiang, 2019/02/14*
+Leo Shiang，2019/02/14
 
-[TOC]
+---
 
 # 簡介
 
-RSAR 是一個用正規表示式作文字搜尋的工具，特點是輸出的樣式很彈性
+RSAR(Regular Search And Replace) 是一個用正規表示式作文字搜尋的工具，特點是輸出的樣式很彈性。
 
 # 使用方式
 
@@ -16,9 +17,7 @@ RSAR 是一個用正規表示式作文字搜尋的工具，特點是輸出的樣
 
 ## 定義正規表示式
 
-如果要在數百個 C# 程式裡面的 SQL 找出 SELECT 和 JOIN 的 TABLE 名稱，將會是一件很累人的事情，此時我們可以透過 RSAR 的搜尋功能很快的找出來。
-
-首先，看一下我們要找的東西長什麼樣子，以下是一段 C# 程式：
+如果要在數百個 C# 程式裡面的 SQL 找出 SELECT 和 JOIN 的 TABLE 名稱，將會是一件很累人的事情，此時我們可以透過 RSAR 的搜尋功能很快的找出來。首先，看一下我們要找的東西長什麼樣子，以下是一段 C# 程式：
 
 ```c#
 strSql += "select distinct resca001,resca002 from resda(nolock) ";
@@ -40,7 +39,7 @@ strSql += "join resak on resdd007 = resak001 and resdd015 = '1' ";
 ((from)|(join))(\s+)([a-zA-z_]{2,})
 ```
 
-為方便測試，可以開啟 https://regex101.com/，將上面的正規表示式貼到 REGULAR EXPRESS 區域，將要找的資料貼到下方的 TEST STRING
+為方便測試，可以開啟 https://regex101.com ，將上面的正規表示式貼到 REGULAR EXPRESS 區域，將要找的資料貼到下方的 TEST STRING
 
 ![image-20200917213424287](README.assets/image-20200917213424287.png)
 
