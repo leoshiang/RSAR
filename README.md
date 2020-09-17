@@ -42,13 +42,17 @@ strSql += "join resak on resdd007 = resak001 and resdd015 = '1' ";
 
 為方便測試，可以開啟 https://regex101.com/，將上面的正規表示式貼到 REGULAR EXPRESS 區域，將要找的資料貼到下方的 TEST STRING
 
-![1550121580850](RSAR.assets/1550121572804.png)
+![image-20200917213424287](README.assets/image-20200917213424287.png)
 
 在 REGULAR EXPRESS 輸入區的尾端有一個旗標圖示，點下去，勾選 global 和 insensitive
 
-![1550121580850](RSAR.assets/1550121580850.png)
+![image-20200917213459526](README.assets/image-20200917213459526.png)
 
-符合條件的文字會用顏色標示出來。確定沒問題之後就可以
+![image-20200917213536649](README.assets/image-20200917213536649.png)
+
+符合條件的文字會用顏色標示出來。
+
+![image-20200917213723840](README.assets/image-20200917213723840.png)
 
 ## 撰寫設定檔
 
